@@ -143,26 +143,46 @@
     <!-- ════════════════════════════
          ปุ่มไปหน้า PROJECTS (เพิ่มใหม่!)
          ════════════════════════════ -->
-    <section class="section">
-      <div class="section-label">
-        <span class="inline-lang" data-lang="th">โปรเจกต์</span>
-        <span class="inline-lang" data-lang="en">Projects</span>
+    <section class="section" id="projects-cta">
+  <div class="section-label">
+    <span class="inline-lang" data-lang="th">โปรเจกต์</span>
+    <span class="inline-lang" data-lang="en">Projects</span>
+  </div>
+
+  <!-- Clickable banner: whole card is the link -->
+  <a href="projects.html" class="projects-cta-banner" aria-label="View all projects — เปิดหน้าโปรเจกต์ทั้งหมด">
+    <div class="projects-cta-left">
+      <div class="projects-cta-icon" aria-hidden="true">🗂️</div>
+    </div>
+
+    <div class="projects-cta-main">
+      <div class="projects-cta-title">
+        <span class="inline-lang" data-lang="th">ดูโปรเจกต์ทั้งหมด</span>
+        <span class="inline-lang" data-lang="en">View All Projects</span>
       </div>
-      <a href="projects.html" class="projects-banner">
-        <div class="projects-banner-icon">🗂️</div>
-        <div class="projects-banner-text">
-          <div class="projects-banner-title">
-            <span class="inline-lang" data-lang="th">ดูโปรเจกต์ทั้งหมด</span>
-            <span class="inline-lang" data-lang="en">View All Projects</span>
-          </div>
-          <div class="projects-banner-sub">
-            <span class="inline-lang" data-lang="th">Roblox · เว็บไซต์ · Game Design</span>
-            <span class="inline-lang" data-lang="en">Roblox · Websites · Game Design</span>
-          </div>
-        </div>
-        <div class="projects-banner-arrow">→</div>
-      </a>
-    </section>
+      <div class="projects-cta-sub">
+        <span class="inline-lang" data-lang="th">Roblox · เว็บไซต์ · Game Design</span>
+        <span class="inline-lang" data-lang="en">Roblox · Websites · Game Design</span>
+      </div>
+    </div>
+
+    <div class="projects-cta-action" aria-hidden="true">
+      <span class="projects-btn">
+        <span class="inline-lang" data-lang="th">ดู</span>
+        <span class="inline-lang" data-lang="en">View</span>
+        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- Quick chips (direct links) -->
+  <div class="projects-quick-grid" aria-hidden="false">
+    <a href="https://www.roblox.com/games/XXXXXX" class="quick-chip" target="_blank" rel="noopener">👔 <span class="chip-text">Showroom</span></a>
+    <a href="https://www.roblox.com/games/YYYYYY" class="quick-chip" target="_blank" rel="noopener">🍸 <span class="chip-text">Bar / Lounge</span></a>
+    <a href="https://kittoeiei.page.gd/" class="quick-chip" target="_blank" rel="noopener">🌐 <span class="chip-text">Portfolio</span></a>
+    <a href="https://kittoeiei-site.kittokub2.workers.dev/" class="quick-chip" target="_blank" rel="noopener">⭐ <span class="chip-text">Project Spotlight</span></a>
+  </div>
+</section>
 
     <!-- ════════════════════════════
          HARD SKILLS
