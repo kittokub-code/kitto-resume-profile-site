@@ -219,12 +219,21 @@ body {
 .hero-name {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   line-height: 1.0; letter-spacing: -0.025em;
   margin-bottom: 8px;
   background: linear-gradient(135deg, var(--text-primary) 20%, var(--accent) 75%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.hero-name-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
 }
 
 .hero-sub {
