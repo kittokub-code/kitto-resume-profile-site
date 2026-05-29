@@ -3,740 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kittipoj Tuntanet — Resume</title>
+  <title>Kittipoj Tuntanet</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Sarabun:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --card: #1a1a1a;
-      --border: #2a2a2a;
-      --accent: #c8f135;
-      --accent2: #3df5b4;
-      --text-primary: #f0f0e8;
-      --text-secondary: #888880;
-      --text-muted: #555550;
-      --tag-bg: #1f1f1f;
-    }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: 'Sarabun', sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.4;
-    }
-
-    /* ── GRID BG ── */
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(200,241,53,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(200,241,53,0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── LANG TOGGLE ── */
-    .lang-toggle {
-      position: fixed;
-      top: 20px;
-      right: 24px;
-      z-index: 100;
-      display: flex;
-      gap: 4px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 4px;
-    }
-
-    .lang-btn {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 6px 14px;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: transparent;
-      color: var(--text-muted);
-    }
-
-    .lang-btn.active {
-      background: var(--accent);
-      color: #0d0d0d;
-    }
-
-    /* ── LAYOUT ── */
-    .page {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 80px 24px 60px;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 32px;
-      align-items: start;
-      padding-bottom: 48px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 48px;
-      animation: fadeUp 0.7s ease both;
-    }
-
-    .avatar-wrap {
-      position: relative;
-      width: 108px;
-      height: 108px;
-      flex-shrink: 0;
-    }
-
-    .avatar-wrap img {
-      width: 108px;
-      height: 108px;
-      border-radius: 16px;
-      object-fit: cover;
-      display: block;
-      border: 2px solid var(--border);
-    }
-
-    .avatar-placeholder {
-      width: 108px;
-      height: 108px;
-      border-radius: 16px;
-      background: var(--card);
-      border: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-    }
-
-    .avatar-wrap::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 20px;
-      border: 1px solid var(--accent);
-      opacity: 0.3;
-    }
-
-    .hero-info { padding-top: 4px; }
-
-    .hero-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-
-    .hero-sub {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .contacts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .contact-chip {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 5px 12px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.15s ease;
-      font-family: 'Space Mono', monospace;
-    }
-
-    .contact-chip:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .contact-chip svg { flex-shrink: 0; opacity: 0.7; }
-
-    .location-line {
-      font-size: 13px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ── SUMMARY ── */
-    .summary-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 12px 12px 0;
-      padding: 20px 24px;
-      margin-bottom: 48px;
-      font-size: 15px;
-      line-height: 1.75;
-      color: var(--text-secondary);
-      animation: fadeUp 0.7s 0.1s ease both;
-    }
-
-    /* ── SECTIONS ── */
-    .section {
-      margin-bottom: 44px;
-      animation: fadeUp 0.7s ease both;
-    }
-
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, var(--border), transparent);
-    }
-
-    /* ── TWO-COL GRID ── */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .two-col { grid-template-columns: 1fr; }
-      .hero { grid-template-columns: 1fr; }
-      .avatar-wrap { margin: 0 auto; }
-    }
-
-    /* ── CARDS ── */
-    .info-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .info-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .card-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: rgba(200,241,53,0.08);
-      border: 1px solid rgba(200,241,53,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 12px;
-    }
-
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .card-meta {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: var(--accent2);
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-
-    .card-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ── EDUCATION ── */
-    .edu-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .edu-year {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      text-align: center;
-      padding-top: 4px;
-      letter-spacing: 0.05em;
-    }
-
-    .edu-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .edu-detail {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .gpa-badge {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      padding: 3px 10px;
-      border-radius: 100px;
-      background: rgba(61,245,180,0.1);
-      border: 1px solid rgba(61,245,180,0.2);
-      color: var(--accent2);
-      margin-top: 8px;
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-tag {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 7px 14px;
-      font-size: 13px;
-      transition: all 0.15s ease;
-    }
-
-    .skill-tag:hover {
-      border-color: var(--accent);
-      background: rgba(200,241,53,0.05);
-    }
-
-    .skill-level {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .level-expert { color: var(--accent); }
-    .level-skilful { color: var(--accent2); }
-
-    .soft-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .soft-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .soft-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    /* ── LANGUAGE TABLE ── */
-    .lang-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .lang-table th {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-align: left;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .lang-table td {
-      padding: 10px 12px;
-      font-size: 13px;
-      border-bottom: 1px solid rgba(42,42,42,0.5);
-    }
-
-    .lang-table tr:last-child td { border-bottom: none; }
-
-    .lang-name { font-weight: 600; }
-
-    .proficiency {
-      display: inline-block;
-      font-size: 11px;
-      padding: 2px 10px;
-      border-radius: 100px;
-    }
-
-    .prof-excellent {
-      background: rgba(200,241,53,0.1);
-      color: var(--accent);
-      border: 1px solid rgba(200,241,53,0.2);
-    }
-
-    .prof-good {
-      background: rgba(61,245,180,0.1);
-      color: var(--accent2);
-      border: 1px solid rgba(61,245,180,0.2);
-    }
-
-    /* ── META INFO ── */
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 12px;
-    }
-
-    .meta-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-    }
-
-    .meta-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    .meta-value {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    /* ── JOB PREFS ── */
-    .pref-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .pref-chip {
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .salary-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(200,241,53,0.06);
-      border: 1px solid rgba(200,241,53,0.2);
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--accent);
-    }
-
-    .salary-unit {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
-    /* ── AVAIL FLAGS ── */
-    .avail-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .avail-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-family: 'Space Mono', monospace;
-      padding: 5px 12px;
-      border-radius: 100px;
-      border: 1px solid rgba(61,245,180,0.2);
-      background: rgba(61,245,180,0.05);
-      color: var(--accent2);
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      border-top: 1px solid var(--border);
-      padding-top: 32px;
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap;
-      gap: 16px;
-    }
-
-    .footer-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .footer-note {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .section:nth-child(1) { animation-delay: 0.05s; }
-    .section:nth-child(2) { animation-delay: 0.1s; }
-    .section:nth-child(3) { animation-delay: 0.15s; }
-    .section:nth-child(4) { animation-delay: 0.2s; }
-    .section:nth-child(5) { animation-delay: 0.25s; }
-    .section:nth-child(6) { animation-delay: 0.3s; }
-    .section:nth-child(7) { animation-delay: 0.35s; }
-
-    /* hide/show lang content */
-    [data-lang="en"] { display: none; }
-    [data-lang="th"] { display: block; }
-    .inline-lang[data-lang="en"] { display: none; }
-    .inline-lang[data-lang="th"] { display: inline; }
-
-    body.en [data-lang="en"] { display: block; }
-    body.en [data-lang="th"] { display: none; }
-    body.en .inline-lang[data-lang="en"] { display: inline; }
-    body.en .inline-lang[data-lang="th"] { display: none; }
-
-    /* flex variants */
-    .flex-lang[data-lang="en"] { display: none; }
-    .flex-lang[data-lang="th"] { display: flex; }
-    body.en .flex-lang[data-lang="en"] { display: flex; }
-    body.en .flex-lang[data-lang="th"] { display: none; }
-  </style>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="grid-bg"></div>
 
-  <!-- Language Toggle -->
+  <!-- Background effects -->
+  <div class="grid-bg"></div>
+  <div class="glow-blob glow-blob-1"></div>
+  <div class="glow-blob glow-blob-2"></div>
+  <div class="glow-blob glow-blob-3"></div>
+
+  <!-- ── Language Toggle ── -->
   <div class="lang-toggle">
-    <button class="lang-btn" id="btn-th" onclick="setLang('th')">TH</button>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
   </div>
 
   <div class="page">
 
-    <!-- ── HERO ── -->
+    <!-- ════════════════════════════
+         HERO
+         ════════════════════════════ -->
     <header class="hero">
       <div class="avatar-wrap">
-        <img id="profile-img" src="photo.jpg" alt="Kittipoj"
+        <div class="avatar-ring"></div>
+        <img id="profile-img" src="photo.jpg" alt="Kittipoj Tuntanet"
              onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex'" />
         <div id="avatar-fallback" class="avatar-placeholder" style="display:none;">👤</div>
       </div>
+
       <div class="hero-info">
         <h1 class="hero-name">Kittipoj<br/>Tuntanet</h1>
         <div class="hero-sub">
-          <span data-lang="th" class="inline-lang">โปรแกรมเมอร์ · นักพัฒนาซอฟต์แวร์</span>
-          <span data-lang="en" class="inline-lang">Software Developer · Programmer</span>
+          <span class="inline-lang" data-lang="th">โปรแกรมเมอร์ · นักพัฒนาซอฟต์แวร์</span>
+          <span class="inline-lang" data-lang="en">Software Developer · Programmer</span>
         </div>
+
         <div class="contacts">
           <a href="tel:0971302039" class="contact-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
             097-130-2039
           </a>
           <a href="mailto:kittoeiei2039@hotmail.com" class="contact-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
             kittoeiei2039@hotmail.com
           </a>
           <a href="https://line.me/ti/p/kit31483" target="_blank" class="contact-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.08 2 11.1c0 3.33 1.97 6.26 4.96 7.96L6 22l3.25-1.7c.88.24 1.8.37 2.75.37 5.52 0 10-4.08 10-9.1C22 6.08 17.52 2 12 2z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.08 2 11.1c0 3.33 1.97 6.26 4.96 7.96L6 22l3.25-1.7c.88.24 1.8.37 2.75.37 5.52 0 10-4.08 10-9.1C22 6.08 17.52 2 12 2z"/>
+            </svg>
             kit31483
           </a>
         </div>
+
         <div class="location-line">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span data-lang="th" class="inline-lang">เขตทวีวัฒนา, กรุงเทพมหานคร 10170</span>
-          <span data-lang="en" class="inline-lang">Tawi Watthana, Bangkok 10170, Thailand</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span class="inline-lang" data-lang="th">เขตทวีวัฒนา, กรุงเทพมหานคร 10170</span>
+          <span class="inline-lang" data-lang="en">Tawi Watthana, Bangkok 10170, Thailand</span>
         </div>
       </div>
     </header>
 
-    <!-- ── SUMMARY ── -->
+    <!-- ════════════════════════════
+         ABOUT / SUMMARY
+         ════════════════════════════ -->
     <div class="summary-box" data-lang="th">
       เป็นโปรแกรมเมอร์ที่มีความเชี่ยวชาญในการพัฒนาซอฟต์แวร์และการเขียนโค้ดด้วยภาษาต่าง ๆ เช่น Python, Java และ JavaScript
       ด้วยประสบการณ์ในการทำงานในโครงการที่หลากหลาย ทำให้มีทักษะในการวิเคราะห์ปัญหาและการออกแบบระบบอย่างมีประสิทธิภาพ
-      นอกจากนี้ยังมีความสามารถในการทำงานร่วมกับทีมและการสื่อสารที่ดี เพื่อให้สามารถพัฒนานวัตกรรมใหม่ ๆ ที่ตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน
-      ด้วยความกระตือรือร้นในการเรียนรู้เทคโนโลยีใหม่ ๆ และการพัฒนาตนเองอย่างต่อเนื่อง
+      นอกจากนี้ยังมีความสามารถในการทำงานร่วมกับทีมและการสื่อสารที่ดี เพื่อให้สามารถพัฒนานวัตกรรมใหม่ ๆ
+      ที่ตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน ด้วยความกระตือรือร้นในการเรียนรู้เทคโนโลยีใหม่ ๆ
+      และการพัฒนาตนเองอย่างต่อเนื่อง
     </div>
     <div class="summary-box" data-lang="en">
       Skilled programmer specializing in software development and coding in languages such as Python, Java, and JavaScript.
-      Experienced in diverse projects, demonstrating strong problem analysis and system design skills. Proven ability to collaborate
-      effectively within teams and communicate clearly, driving the development of innovative solutions that meet client needs.
-      Committed to continuous learning and self-improvement in emerging technologies.
+      Experienced in diverse projects, demonstrating strong problem analysis and system design skills. Proven ability to
+      collaborate effectively within teams and communicate clearly, driving the development of innovative solutions that
+      meet client needs. Committed to continuous learning and self-improvement in emerging technologies.
     </div>
 
-    <!-- ── JOB PREFERENCES ── -->
+    <!-- ════════════════════════════
+         EDUCATION
+         ════════════════════════════ -->
     <section class="section">
       <div class="section-label">
-        <span data-lang="th" class="inline-lang">งานที่ต้องการ</span>
-        <span data-lang="en" class="inline-lang">Job Preferences</span>
-      </div>
-      <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; margin-bottom:16px;">
-        <div class="salary-badge">
-          15,000 – 20,000
-          <span class="salary-unit">
-            <span data-lang="th" class="inline-lang">บาท/เดือน</span>
-            <span data-lang="en" class="inline-lang">THB/mo</span>
-          </span>
-        </div>
-        <div class="pref-chip">
-          <span data-lang="th" class="inline-lang">📋 งานประจำ</span>
-          <span data-lang="en" class="inline-lang">📋 Full-Time</span>
-        </div>
-        <div class="pref-chip">
-          <span data-lang="th" class="inline-lang">🟢 เริ่มงานได้ทันที</span>
-          <span data-lang="en" class="inline-lang">🟢 Available Immediately</span>
-        </div>
-      </div>
-      <div class="two-col">
-        <div class="info-card">
-          <div class="card-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          </div>
-          <div class="card-title">
-            <span data-lang="th" class="inline-lang">ไอที / ไอทีอื่นๆ</span>
-            <span data-lang="en" class="inline-lang">IT / IT Others</span>
-          </div>
-          <div class="card-meta">POSITION 1</div>
-          <div class="card-desc">
-            <span data-lang="th" class="inline-lang">สาขาคอมพิวเตอร์และไอที</span>
-            <span data-lang="en" class="inline-lang">Computer & Information Technology</span>
-          </div>
-        </div>
-        <div class="info-card">
-          <div class="card-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="card-title">
-            <span data-lang="th" class="inline-lang">การค้าระหว่างประเทศ</span>
-            <span data-lang="en" class="inline-lang">International Trade</span>
-          </div>
-          <div class="card-meta">POSITION 2</div>
-          <div class="card-desc">
-            <span data-lang="th" class="inline-lang">นำเข้า-ส่งออก, โลจิสติกส์</span>
-            <span data-lang="en" class="inline-lang">Import/Export, Logistics</span>
-          </div>
-        </div>
-      </div>
-      <div class="avail-list">
-        <div class="avail-chip">✓ <span data-lang="th" class="inline-lang">กรุงเทพฯ</span><span data-lang="en" class="inline-lang">Bangkok</span></div>
-        <div class="avail-chip">✓ <span data-lang="th" class="inline-lang">ต่างจังหวัด</span><span data-lang="en" class="inline-lang">Upcountry</span></div>
-        <div class="avail-chip">✓ <span data-lang="th" class="inline-lang">ต่างประเทศ</span><span data-lang="en" class="inline-lang">Overseas</span></div>
-      </div>
-    </section>
-
-    <!-- ── EDUCATION ── -->
-    <section class="section">
-      <div class="section-label">
-        <span data-lang="th" class="inline-lang">ประวัติการศึกษา</span>
-        <span data-lang="en" class="inline-lang">Education</span>
+        <span class="inline-lang" data-lang="th">ประวัติการศึกษา</span>
+        <span class="inline-lang" data-lang="en">Education</span>
       </div>
       <div class="edu-block">
         <div class="edu-year">2025</div>
         <div>
           <div class="edu-name">
-            <span data-lang="th" class="inline-lang">มหาวิทยาลัยมหิดล</span>
-            <span data-lang="en" class="inline-lang">Mahidol University</span>
+            <span class="inline-lang" data-lang="th">มหาวิทยาลัยมหิดล</span>
+            <span class="inline-lang" data-lang="en">Mahidol University</span>
           </div>
           <div class="edu-detail">
-            <span data-lang="th" class="inline-lang">
+            <span class="inline-lang" data-lang="th">
               คณะเทคโนโลยีสารสนเทศและการสื่อสาร<br/>
               สาขา: ธุรกิจอิเล็กทรอนิกส์ · ปริญญาตรี
             </span>
-            <span data-lang="en" class="inline-lang">
+            <span class="inline-lang" data-lang="en">
               Faculty of Information and Communication Technology<br/>
               Major: E-Business · Bachelor's Degree
             </span>
@@ -746,185 +127,200 @@
       </div>
     </section>
 
-    <!-- ── HARD SKILLS ── -->
+    <!-- ════════════════════════════
+         HARD SKILLS
+         ════════════════════════════ -->
     <section class="section">
       <div class="section-label">
-        <span data-lang="th" class="inline-lang">ทักษะ AI Tools</span>
-        <span data-lang="en" class="inline-lang">Hard Skills — AI Tools</span>
+        <span class="inline-lang" data-lang="th">ทักษะด้านเทคนิค</span>
+        <span class="inline-lang" data-lang="en">Hard Skills</span>
       </div>
       <div class="skills-grid">
+
+        <!-- AI Tools -->
         <div class="skill-tag">
           <span>🤖 Claude</span>
           <span class="skill-level level-skilful">
-            <span data-lang="th" class="inline-lang">ชำนาญ</span>
-            <span data-lang="en" class="inline-lang">Skilful</span>
+            <span class="inline-lang" data-lang="th">ชำนาญ</span>
+            <span class="inline-lang" data-lang="en">Skilful</span>
           </span>
         </div>
         <div class="skill-tag">
           <span>💎 Gemini</span>
           <span class="skill-level level-expert">
-            <span data-lang="th" class="inline-lang">เชี่ยวชาญ</span>
-            <span data-lang="en" class="inline-lang">Expert</span>
+            <span class="inline-lang" data-lang="th">เชี่ยวชาญ</span>
+            <span class="inline-lang" data-lang="en">Expert</span>
           </span>
         </div>
         <div class="skill-tag">
           <span>🔍 Perplexity AI</span>
           <span class="skill-level level-skilful">
-            <span data-lang="th" class="inline-lang">ชำนาญ</span>
-            <span data-lang="en" class="inline-lang">Skilful</span>
+            <span class="inline-lang" data-lang="th">ชำนาญ</span>
+            <span class="inline-lang" data-lang="en">Skilful</span>
           </span>
         </div>
         <div class="skill-tag">
           <span>💬 ChatGPT</span>
           <span class="skill-level level-skilful">
-            <span data-lang="th" class="inline-lang">ชำนาญ</span>
-            <span data-lang="en" class="inline-lang">Skilful</span>
+            <span class="inline-lang" data-lang="th">ชำนาญ</span>
+            <span class="inline-lang" data-lang="en">Skilful</span>
           </span>
         </div>
+
+        <!-- Programming -->
+        <div class="skill-tag"><span>🐍 Python</span></div>
+        <div class="skill-tag"><span>☕ Java</span></div>
+        <div class="skill-tag"><span>🌐 JavaScript</span></div>
+
+        <!-- Web / DevOps -->
+        <div class="skill-tag"><span>☁️ Cloudflare</span></div>
+        <div class="skill-tag"><span>🐙 GitHub</span></div>
         <div class="skill-tag">
-          <span>🐍 Python</span>
+          <span class="inline-lang" data-lang="th">🖥️ ออกแบบเว็บไซต์</span>
+          <span class="inline-lang" data-lang="en">🖥️ Web Design</span>
         </div>
-        <div class="skill-tag">
-          <span>☕ Java</span>
-        </div>
-        <div class="skill-tag">
-          <span>🌐 JavaScript</span>
-        </div>
-        <div class="skill-tag">
-          <span>🔗 Cloudflare + GitHub</span>
-        </div>
+
       </div>
     </section>
 
-    <!-- ── SOFT SKILLS + LANGUAGES ── -->
+    <!-- ════════════════════════════
+         SOFT SKILLS + LANGUAGES
+         ════════════════════════════ -->
     <div class="two-col section">
+
+      <!-- Soft Skills -->
       <div>
         <div class="section-label">
-          <span data-lang="th" class="inline-lang">ทักษะซอฟต์</span>
-          <span data-lang="en" class="inline-lang">Soft Skills</span>
+          <span class="inline-lang" data-lang="th">ทักษะซอฟต์</span>
+          <span class="inline-lang" data-lang="en">Soft Skills</span>
         </div>
         <div class="soft-list">
-          <div class="soft-item"><div class="soft-dot"></div><span data-lang="th" class="inline-lang">ทักษะการควบคุมจิตใจและสมาธิ</span><span data-lang="en" class="inline-lang">Focus Mastery</span></div>
-          <div class="soft-item"><div class="soft-dot"></div><span data-lang="th" class="inline-lang">ทักษะการรู้จักตนเอง</span><span data-lang="en" class="inline-lang">Self Awareness</span></div>
-          <div class="soft-item"><div class="soft-dot"></div><span data-lang="th" class="inline-lang">ทักษะความสามารถในการปรับตัว</span><span data-lang="en" class="inline-lang">Adaptability</span></div>
-          <div class="soft-item"><div class="soft-dot"></div><span data-lang="th" class="inline-lang">ทักษะการเข้าใจความแตกต่างทางวัฒนธรรม</span><span data-lang="en" class="inline-lang">Culture Awareness</span></div>
-          <div class="soft-item"><div class="soft-dot"></div><span data-lang="th" class="inline-lang">ทักษะความฉลาดทางอารมณ์</span><span data-lang="en" class="inline-lang">Emotional Intelligence</span></div>
+          <div class="soft-item">
+            <div class="soft-dot"></div>
+            <span class="inline-lang" data-lang="th">ทักษะการควบคุมจิตใจและสมาธิ</span>
+            <span class="inline-lang" data-lang="en">Focus Mastery</span>
+          </div>
+          <div class="soft-item">
+            <div class="soft-dot"></div>
+            <span class="inline-lang" data-lang="th">ทักษะการรู้จักตนเอง</span>
+            <span class="inline-lang" data-lang="en">Self Awareness</span>
+          </div>
+          <div class="soft-item">
+            <div class="soft-dot"></div>
+            <span class="inline-lang" data-lang="th">ทักษะความสามารถในการปรับตัว</span>
+            <span class="inline-lang" data-lang="en">Adaptability</span>
+          </div>
+          <div class="soft-item">
+            <div class="soft-dot"></div>
+            <span class="inline-lang" data-lang="th">ทักษะการเข้าใจความแตกต่างทางวัฒนธรรม</span>
+            <span class="inline-lang" data-lang="en">Culture Awareness</span>
+          </div>
+          <div class="soft-item">
+            <div class="soft-dot"></div>
+            <span class="inline-lang" data-lang="th">ทักษะความฉลาดทางอารมณ์</span>
+            <span class="inline-lang" data-lang="en">Emotional Intelligence</span>
+          </div>
         </div>
       </div>
+
+      <!-- Language Proficiency -->
       <div>
         <div class="section-label">
-          <span data-lang="th" class="inline-lang">ทักษะทางภาษา</span>
-          <span data-lang="en" class="inline-lang">Languages</span>
+          <span class="inline-lang" data-lang="th">ทักษะทางภาษา</span>
+          <span class="inline-lang" data-lang="en">Language Skills</span>
         </div>
         <table class="lang-table">
           <thead>
             <tr>
-              <th><span data-lang="th" class="inline-lang">ภาษา</span><span data-lang="en" class="inline-lang">Language</span></th>
-              <th><span data-lang="th" class="inline-lang">พูด</span><span data-lang="en" class="inline-lang">Speak</span></th>
-              <th><span data-lang="th" class="inline-lang">เขียน</span><span data-lang="en" class="inline-lang">Write</span></th>
+              <th><span class="inline-lang" data-lang="th">ภาษา</span><span class="inline-lang" data-lang="en">Language</span></th>
+              <th><span class="inline-lang" data-lang="th">พูด</span><span class="inline-lang" data-lang="en">Speak</span></th>
+              <th><span class="inline-lang" data-lang="th">เขียน</span><span class="inline-lang" data-lang="en">Write</span></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="lang-name"><span data-lang="th" class="inline-lang">ไทย</span><span data-lang="en" class="inline-lang">Thai</span></td>
-              <td><span class="proficiency prof-excellent"><span data-lang="th" class="inline-lang">ดีมาก</span><span data-lang="en" class="inline-lang">Excellent</span></span></td>
-              <td><span class="proficiency prof-excellent"><span data-lang="th" class="inline-lang">ดีมาก</span><span data-lang="en" class="inline-lang">Excellent</span></span></td>
+              <td class="lang-name"><span class="inline-lang" data-lang="th">ไทย</span><span class="inline-lang" data-lang="en">Thai</span></td>
+              <td><span class="proficiency prof-excellent"><span class="inline-lang" data-lang="th">ดีมาก</span><span class="inline-lang" data-lang="en">Excellent</span></span></td>
+              <td><span class="proficiency prof-excellent"><span class="inline-lang" data-lang="th">ดีมาก</span><span class="inline-lang" data-lang="en">Excellent</span></span></td>
             </tr>
             <tr>
-              <td class="lang-name"><span data-lang="th" class="inline-lang">อังกฤษ</span><span data-lang="en" class="inline-lang">English</span></td>
-              <td><span class="proficiency prof-good"><span data-lang="th" class="inline-lang">ดี</span><span data-lang="en" class="inline-lang">Good</span></span></td>
-              <td><span class="proficiency prof-excellent"><span data-lang="th" class="inline-lang">ดีมาก</span><span data-lang="en" class="inline-lang">Excellent</span></span></td>
+              <td class="lang-name"><span class="inline-lang" data-lang="th">อังกฤษ</span><span class="inline-lang" data-lang="en">English</span></td>
+              <td><span class="proficiency prof-good"><span class="inline-lang" data-lang="th">ดี</span><span class="inline-lang" data-lang="en">Good</span></span></td>
+              <td><span class="proficiency prof-excellent"><span class="inline-lang" data-lang="th">ดีมาก</span><span class="inline-lang" data-lang="en">Excellent</span></span></td>
             </tr>
           </tbody>
         </table>
       </div>
+
     </div>
 
-    <!-- ── PERSONAL INFO ── -->
+    <!-- ════════════════════════════
+         PERSONAL INFORMATION
+         ════════════════════════════ -->
     <section class="section">
       <div class="section-label">
-        <span data-lang="th" class="inline-lang">ข้อมูลส่วนตัว</span>
-        <span data-lang="en" class="inline-lang">Personal Information</span>
+        <span class="inline-lang" data-lang="th">ข้อมูลส่วนตัว</span>
+        <span class="inline-lang" data-lang="en">Personal Information</span>
       </div>
       <div class="meta-grid">
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">วันเกิด</span><span data-lang="en" class="inline-lang">Date of Birth</span></div>
-          <div class="meta-value">09/03/2001</div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">วันเกิด</span><span class="inline-lang" data-lang="en">Date of Birth</span></div>
+          <div class="meta-value">09 / 03 / 2001</div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">อายุ</span><span data-lang="en" class="inline-lang">Age</span></div>
-          <div class="meta-value"><span data-lang="th" class="inline-lang">25 ปี</span><span data-lang="en" class="inline-lang">25 yrs</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">อายุ</span><span class="inline-lang" data-lang="en">Age</span></div>
+          <div class="meta-value"><span class="inline-lang" data-lang="th">25 ปี</span><span class="inline-lang" data-lang="en">25 yrs</span></div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">เพศ</span><span data-lang="en" class="inline-lang">Gender</span></div>
-          <div class="meta-value"><span data-lang="th" class="inline-lang">ชาย</span><span data-lang="en" class="inline-lang">Male</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">เพศ</span><span class="inline-lang" data-lang="en">Gender</span></div>
+          <div class="meta-value"><span class="inline-lang" data-lang="th">ชาย</span><span class="inline-lang" data-lang="en">Male</span></div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">สถานะ</span><span data-lang="en" class="inline-lang">Status</span></div>
-          <div class="meta-value"><span data-lang="th" class="inline-lang">โสด</span><span data-lang="en" class="inline-lang">Single</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">สถานะ</span><span class="inline-lang" data-lang="en">Status</span></div>
+          <div class="meta-value"><span class="inline-lang" data-lang="th">โสด</span><span class="inline-lang" data-lang="en">Single</span></div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">สัญชาติ</span><span data-lang="en" class="inline-lang">Nationality</span></div>
-          <div class="meta-value"><span data-lang="th" class="inline-lang">ไทย</span><span data-lang="en" class="inline-lang">Thai</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">สัญชาติ</span><span class="inline-lang" data-lang="en">Nationality</span></div>
+          <div class="meta-value"><span class="inline-lang" data-lang="th">ไทย</span><span class="inline-lang" data-lang="en">Thai</span></div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">น้ำหนัก / ส่วนสูง</span><span data-lang="en" class="inline-lang">Weight / Height</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">น้ำหนัก / ส่วนสูง</span><span class="inline-lang" data-lang="en">Weight / Height</span></div>
           <div class="meta-value">92 kg / 176 cm</div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">ทหาร</span><span data-lang="en" class="inline-lang">Military</span></div>
-          <div class="meta-value"><span data-lang="th" class="inline-lang">ได้รับการยกเว้น</span><span data-lang="en" class="inline-lang">Exempted</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">ทหาร</span><span class="inline-lang" data-lang="en">Military</span></div>
+          <div class="meta-value"><span class="inline-lang" data-lang="th">ได้รับการยกเว้น</span><span class="inline-lang" data-lang="en">Exempted</span></div>
         </div>
         <div class="meta-item">
-          <div class="meta-label"><span data-lang="th" class="inline-lang">ยานพาหนะ</span><span data-lang="en" class="inline-lang">Vehicle</span></div>
-          <div class="meta-value"><span data-lang="th" class="inline-lang">รถยนต์ + ใบขับขี่</span><span data-lang="en" class="inline-lang">Car + License</span></div>
+          <div class="meta-label"><span class="inline-lang" data-lang="th">ยานพาหนะ</span><span class="inline-lang" data-lang="en">Vehicle / License</span></div>
+          <div class="meta-value"><span class="inline-lang" data-lang="th">รถยนต์ + ใบขับขี่</span><span class="inline-lang" data-lang="en">Car + License</span></div>
         </div>
+      </div>
+
+      <!-- Availability -->
+      <div class="avail-list">
+        <div class="avail-chip">✓ <span class="inline-lang" data-lang="th">กรุงเทพฯ</span><span class="inline-lang" data-lang="en">Bangkok</span></div>
+        <div class="avail-chip">✓ <span class="inline-lang" data-lang="th">ต่างจังหวัด</span><span class="inline-lang" data-lang="en">Upcountry</span></div>
+        <div class="avail-chip">✓ <span class="inline-lang" data-lang="th">ต่างประเทศ</span><span class="inline-lang" data-lang="en">Overseas</span></div>
+        <div class="avail-chip">🟢 <span class="inline-lang" data-lang="th">เริ่มงานได้ทันที</span><span class="inline-lang" data-lang="en">Available Immediately</span></div>
       </div>
     </section>
 
-    <!-- ── FOOTER ── -->
+    <!-- ════════════════════════════
+         FOOTER
+         ════════════════════════════ -->
     <footer class="footer">
       <div class="footer-name">Kittipoj Tuntanet</div>
       <div class="footer-note">
-        <span data-lang="th" class="inline-lang">อัปเดตล่าสุด 2025</span>
-        <span data-lang="en" class="inline-lang">Last updated 2025</span>
+        <span class="inline-lang" data-lang="th">อัปเดตล่าสุด 2025</span>
+        <span class="inline-lang" data-lang="en">Last updated 2025</span>
       </div>
     </footer>
 
-  </div>
+  </div><!-- /page -->
 
-  <script>
-    // ── GEO DETECTION ──
-    async function detectLang() {
-      // Check saved preference first
-      const saved = localStorage.getItem('resume_lang');
-      if (saved) { applyLang(saved); return; }
+  <!-- Language Script -->
+  <script src="js/lang.js"></script>
 
-      try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        const country = (data.country_code || '').toUpperCase();
-        applyLang(country === 'TH' ? 'th' : 'en');
-      } catch {
-        // Fallback: check browser language
-        const browserLang = navigator.language || '';
-        applyLang(browserLang.startsWith('th') ? 'th' : 'en');
-      }
-    }
-
-    function applyLang(lang) {
-      document.body.classList.toggle('en', lang === 'en');
-      document.getElementById('btn-th').classList.toggle('active', lang === 'th');
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      document.documentElement.setAttribute('lang', lang === 'th' ? 'th' : 'en');
-    }
-
-    function setLang(lang) {
-      localStorage.setItem('resume_lang', lang);
-      applyLang(lang);
-    }
-
-    detectLang();
-  </script>
 </body>
 </html>
