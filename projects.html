@@ -14,38 +14,49 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: inherit;
+      color: var(--text-secondary);
       text-decoration: none;
-      opacity: 0.6;
+      opacity: 0.7;
       font-size: 0.9em;
       margin-bottom: 32px;
-      transition: opacity 0.2s;
+      transition: all 0.2s;
+      font-family: var(--font-mono);
     }
-    .back-btn:hover { opacity: 1; }
+    .back-btn:hover {
+      opacity: 1;
+      color: var(--accent);
+      transform: translateX(-3px);
+    }
 
     /* ── Page Title ── */
     .projects-page-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 2em;
+      font-family: var(--font-display);
+      font-size: 2.2em;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--text-primary) 20%, var(--accent) 75%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .projects-page-sub {
-      opacity: 0.5;
+      font-family: var(--font-mono);
       font-size: 0.9em;
+      color: var(--text-muted);
       margin-bottom: 40px;
     }
 
     /* ── Category Label ── */
     .cat-label {
+      font-family: var(--font-mono);
       font-size: 0.75em;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      opacity: 0.45;
-      margin: 36px 0 14px;
+      color: var(--accent);
+      margin: 36px 0 16px;
     }
-    .cat-label:first-of-type { margin-top: 0; }
+    .cat-label:first-of-type { margin-top: 24px; }
 
     /* ── Project Cards Grid ── */
     .proj-grid {
@@ -56,89 +67,95 @@
 
     /* ── Project Card ── */
     .proj-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
       padding: 22px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
     }
     .proj-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.22);
+      border-color: var(--accent);
       transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 32px rgba(91,79,255,0.12);
     }
     .proj-card-icon {
       font-size: 2em;
       line-height: 1;
+      margin-bottom: 4px;
     }
     .proj-card-title {
-      font-family: 'Syne', sans-serif;
+      font-family: var(--font-display);
       font-size: 1.05em;
       font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
     }
     .proj-card-desc {
-      font-size: 0.88em;
-      opacity: 0.6;
-      line-height: 1.55;
+      font-size: 0.9em;
+      color: var(--text-muted);
+      line-height: 1.65;
       flex: 1;
     }
     .proj-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      margin-top: 8px;
     }
     .proj-tag {
       font-size: 0.72em;
-      font-family: 'Space Mono', monospace;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      opacity: 0.8;
+      font-family: var(--font-mono);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--tag-bg);
+      border: 1px solid rgba(91,79,255,0.18);
+      color: var(--accent);
     }
     .proj-card-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      margin-top: 4px;
+      margin-top: 12px;
       padding: 10px 16px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: inherit;
+      border-radius: var(--radius-sm);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--accent);
       text-decoration: none;
       font-size: 0.85em;
+      font-family: var(--font-mono);
       font-weight: 600;
       transition: all 0.2s ease;
     }
     .proj-card-btn:hover {
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(255,255,255,0.3);
-    }
-    .proj-card-btn.disabled {
-      opacity: 0.3;
-      pointer-events: none;
-      cursor: not-allowed;
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(91,79,255,0.15);
     }
 
     @media (max-width: 600px) {
       .proj-grid { grid-template-columns: 1fr; }
-      .projects-page-title { font-size: 1.5em; }
+      .projects-page-title { font-size: 1.6em; }
+      .two-col { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Background effects -->
   <div class="grid-bg"></div>
   <div class="glow-blob glow-blob-1"></div>
   <div class="glow-blob glow-blob-2"></div>
   <div class="glow-blob glow-blob-3"></div>
 
+  <!-- Decorative floating shapes -->
   <div class="deco-shapes" aria-hidden="true">
     <div class="deco deco-ring deco-ring-1"></div>
     <div class="deco deco-ring deco-ring-2"></div>
@@ -151,6 +168,7 @@
     <div class="deco deco-square deco-square-2"></div>
   </div>
 
+  <!-- Language Toggle -->
   <div class="lang-toggle">
     <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
     <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
@@ -158,7 +176,7 @@
 
   <div class="page">
 
-    <!-- Back -->
+    <!-- Back Button -->
     <a href="index.html" class="back-btn">
       ← <span class="inline-lang" data-lang="th">กลับหน้าหลัก</span>
         <span class="inline-lang" data-lang="en">Back to Resume</span>
@@ -188,7 +206,7 @@
         <div class="proj-card-desc">
           <span class="inline-lang" data-lang="th">
             ออกแบบโชว์รูม 3D สำหรับแบรนด์เสื้อผ้าให้ลูกค้ามาดูสินค้าแล้วสนใจซื้อ
-            มีพื้นที่จัดแสดง, จัดแสงไฟ, และจุดวางสินค้าเพื่อดึงดูดผู้ซื้อ
+            มีพื้นที่จัดแสดง จัดแสงไฟ และจุดวางสินค้าเพื่อดึงดูดผู้ซื้อ
           </span>
           <span class="inline-lang" data-lang="en">
             Designed a 3D virtual showroom for clothing brands to showcase products
@@ -219,7 +237,7 @@
         </div>
         <div class="proj-card-desc">
           <span class="inline-lang" data-lang="th">
-            ออกแบบผับและ lounge atmosphere พร้อมบาร์, ที่นั่ง, dance floor
+            ออกแบบผับและ lounge atmosphere พร้อมบาร์ ที่นั่ง dance floor
             และแสง ambient เพื่อสร้างบรรยากาศสมจริง
           </span>
           <span class="inline-lang" data-lang="en">
